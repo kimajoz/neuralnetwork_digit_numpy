@@ -11,10 +11,15 @@ class NeuralNetwork:
 
 	def predict(self, a):
 	    for w,b in zip(self.weights,self.biases):
-		z = np.matmul(w,a) + b
-		print(z[0])
 		a = self.activation(np.matmul(w,a) + b)
+		#z = np.matmul(w,a) + b
+		#print(z[0])
 	    return a
+
+	def print_accuracy(self, images, labels):
+	    predictions = self.predict(images)
+	    num_correct = sum([np.argmax(a) == np.argmax(b) for a,b in zip(predictions,labels)])
+	    print('{0}/{1} accuracy: {2}%'.format(num_correct,len(images), (num_correct/len(images))*100))
 
 	@staticmethod
 	def activation(x):
